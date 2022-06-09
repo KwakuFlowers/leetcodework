@@ -12,29 +12,28 @@ class Solution(object):
         :rtype: List[int]
         """
         self.nums = nums
-        # print(self.nums)
+        # #print(self.nums)
         self.target = target
-        # print(self.target)
+        # #print(self.target)
         self.ret = []
         self.currlen = len(self.nums)
-        # print(self.currlen)
-
+        # #print(self.currlen)
+        self.compare = {}
         if self.currlen >= 2 and self.currlen <= (10**4):
-            self.maxind = self.currlen - 1
-            for e in enumerate(self.nums):
-                self.numlook = abs(target - e[1])
-                # print(self.numlook)
-                foundvalind = self.findvalue(self.numlook, self.nums, e[0])
-                if isinstance(foundvalind, type(None)):
-                    # print(foundvalind)
-                    if e[0] == self.maxind:
-                        break
-                    continue
-                else:
-                    self.ret = [e[0], foundvalind]
+            self.compare = {k: val for val, k in enumerate(self.nums)}
+            # print(self.compare)
+            for i in enumerate(self.nums):
+                currsearch = target - i[1]
+                # print([i[0]])
+                # print(currsearch)
+                if currsearch in self.compare and self.compare[currsearch] != i[0]:
+                    secind = self.compare[currsearch]
+                    self.ret = [i[0], secind]
+                    # print(self.ret)
+                    return self.ret
                     break
-
-            return self.ret
+                else:
+                    continue
 
 
 S = Solution()
